@@ -3,3 +3,7 @@
 
 # karabiner folders
 /assets
+/automatic_backups
+
+#debug filese 
+temp*
