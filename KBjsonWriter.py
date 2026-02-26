@@ -49,8 +49,8 @@ def setComplexMods():
             "manipulators": 
             [
                 # toggles VIM MODE
-                toggleCapsVIM_MODE_ON(),
                 toggleCapsVIM_MODE_OFF(),
+                toggleCapsVIM_MODE_ON(),
                 # hjkl arrow keys
                 normal_MODE("j", "down_arrow"),
                 normal_MODE("k", "up_arrow"),

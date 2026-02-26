@@ -23,7 +23,7 @@
                                     {
                                         "set_variable": {
                                             "name": "VIM_MODE",
-                                            "value": 1
+                                            "value": 0
                                         }
                                     }
                                 ],
@@ -31,7 +31,7 @@
                                     {
                                         "type": "variable_if",
                                         "name": "VIM_MODE",
-                                        "value": 0
+                                        "value": 1
                                     }
                                 ]
                             },
@@ -52,7 +52,7 @@
                                     {
                                         "set_variable": {
                                             "name": "VIM_MODE",
-                                            "value": 0
+                                            "value": 1
                                         }
                                     }
                                 ],
@@ -60,7 +60,7 @@
                                     {
                                         "type": "variable_if",
                                         "name": "VIM_MODE",
-                                        "value": 1
+                                        "value": 0
                                     }
                                 ]
                             },
