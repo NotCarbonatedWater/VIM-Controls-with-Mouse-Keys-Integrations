@@ -1,4 +1,4 @@
-# VIM Controls with Mouse Keys Integrations
+# VIM Controls with Mouse Keys Integrations for Karabiner Elements
 - Shift+CapsLock turns vim mode on/off
 - "h" = left arrow
 - "j" = dowm arrow 
