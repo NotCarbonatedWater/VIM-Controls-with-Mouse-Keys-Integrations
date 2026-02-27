@@ -55,6 +55,14 @@ def NORMAL_MODE(key, newKey):
         "conditions": setConditions(1, 1, 0)
     }
 
+def NORMAL_MODE_TOGGLE():
+    return {
+        "type": "basic",
+        "from": {"key_code": "caps_lock","modifiers": {"optional": ["any"]}},
+        "to": setMODES(1, 1, 0), 
+        "conditions": setCondition(1) # potential bug
+    }
+
 def insert_MODE():
     return {
         "type": "basic",
@@ -71,12 +79,12 @@ def MOUSE_MODE_TOGGLE_ON():
         "conditions": setConditions(1, 1, 0) # potential bug
     }
 
-def MOUSE_MODE_TOGGLE_OFF():
+def MOUSE_MODE_CLICK(key, buttonType):
     return {
         "type": "basic",
-        "from": {"key_code": "m","modifiers": {"optional": ["any"]}},
-        "to": setMODES(1, 1, 0), 
-        "conditions": setConditions(1, 0, 1) # potential bug
+        "from": {"key_code": key,"modifiers": {"optional": ["any"]}},
+        "to": [{ "pointing_button": buttonType}],
+        "conditions": setConditions(1, 0, 1)
     }
 
 def MOUSE_MODE(key, plane, dist):
@@ -100,6 +108,7 @@ def setComplexMods():
                 toggleCapsVIM_MODE_ON(),
         
                 # hjkl arrow keys
+                NORMAL_MODE_TOGGLE(),
                 NORMAL_MODE("j", "down_arrow"),
                 NORMAL_MODE("k", "up_arrow"),
                 NORMAL_MODE("h", "left_arrow"),
@@ -108,13 +117,15 @@ def setComplexMods():
                 # insert mode 
                 insert_MODE(),
 
-                # mouse keys 
-                MOUSE_MODE_TOGGLE_OFF(),
+                # mouse keys to turn off, set normal mode using caps-lock
                 MOUSE_MODE_TOGGLE_ON(), 
                 MOUSE_MODE("j", "y", 1000),
                 MOUSE_MODE("k", "y", -1000),
                 MOUSE_MODE("h", "x", -1000),
                 MOUSE_MODE("l", "x", 1000),
+                MOUSE_MODE_CLICK("spacebar", "button1"),
+                MOUSE_MODE_CLICK("semicolon", "button2"),
+
             ]
         }
     ]

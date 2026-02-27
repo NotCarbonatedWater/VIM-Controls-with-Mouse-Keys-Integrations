@@ -91,6 +91,44 @@
                             {
                                 "type": "basic",
                                 "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "VIM_MODE",
+                                            "value": 1
+                                        }
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "NORMAL_MODE",
+                                            "value": 1
+                                        }
+                                    },
+                                    {
+                                        "set_variable": {
+                                            "name": "MOUSE_MODE",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "conditions": [
+                                    {
+                                        "type": "variable_if",
+                                        "name": "VIM_MODE",
+                                        "value": 1
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "from": {
                                     "key_code": "j",
                                     "modifiers": {
                                         "optional": [
@@ -288,54 +326,6 @@
                                     {
                                         "set_variable": {
                                             "name": "NORMAL_MODE",
-                                            "value": 1
-                                        }
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "MOUSE_MODE",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
-                                "conditions": [
-                                    {
-                                        "type": "variable_if",
-                                        "name": "VIM_MODE",
-                                        "value": 1
-                                    },
-                                    {
-                                        "type": "variable_if",
-                                        "name": "NORMAL_MODE",
-                                        "value": 0
-                                    },
-                                    {
-                                        "type": "variable_if",
-                                        "name": "MOUSE_MODE",
-                                        "value": 1
-                                    }
-                                ]
-                            },
-                            {
-                                "type": "basic",
-                                "from": {
-                                    "key_code": "m",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "VIM_MODE",
-                                            "value": 1
-                                        }
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "NORMAL_MODE",
                                             "value": 0
                                         }
                                     },
@@ -484,6 +474,72 @@
                                         "mouse_key": {
                                             "x": 1000
                                         }
+                                    }
+                                ],
+                                "conditions": [
+                                    {
+                                        "type": "variable_if",
+                                        "name": "VIM_MODE",
+                                        "value": 1
+                                    },
+                                    {
+                                        "type": "variable_if",
+                                        "name": "NORMAL_MODE",
+                                        "value": 0
+                                    },
+                                    {
+                                        "type": "variable_if",
+                                        "name": "MOUSE_MODE",
+                                        "value": 1
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "spacebar",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "pointing_button": "button1"
+                                    }
+                                ],
+                                "conditions": [
+                                    {
+                                        "type": "variable_if",
+                                        "name": "VIM_MODE",
+                                        "value": 1
+                                    },
+                                    {
+                                        "type": "variable_if",
+                                        "name": "NORMAL_MODE",
+                                        "value": 0
+                                    },
+                                    {
+                                        "type": "variable_if",
+                                        "name": "MOUSE_MODE",
+                                        "value": 1
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "semicolon",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "pointing_button": "button2"
                                     }
                                 ],
                                 "conditions": [
