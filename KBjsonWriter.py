@@ -8,20 +8,34 @@ def write_to_json(filename, data):
     except Exception as e:
         print(f"An error occurred: {e}")
 
+def CAPS_SHIFT():
+    return {"key_code": "caps_lock","modifiers": {"mandatory": ["shift"],"optional": ["any"]}}
+
+def setMODES(VIM_MODE_BOOL):
+    return [
+        {"set_variable": {"name": "VIM_MODE","value": VIM_MODE_BOOL}}
+    ]
+
+# checks if matches conditions 
+def setConditions(VIM_MODE_BOOL):
+    return [
+        {"type": "variable_if","name": "VIM_MODE","value": VIM_MODE_BOOL}
+    ]
+
 def toggleCapsVIM_MODE_ON():
     return {
         "type": "basic",
-        "from": {"key_code": "caps_lock","modifiers": {"mandatory": ["shift"],"optional": ["any"]}},
-        "to": [{"set_variable": {"name": "VIM_MODE","value": 1}}],
-        "conditions": [{"type": "variable_if","name": "VIM_MODE","value": 0}]
+        "from": CAPS_SHIFT(),
+        "to": setMODES(1),
+        "conditions": setConditions(0)
     }
 
 def toggleCapsVIM_MODE_OFF():
     return {
         "type": "basic",
-        "from": {"key_code": "caps_lock","modifiers": {"mandatory": ["shift"],"optional": ["any"]}},
-        "to": [{"set_variable": {"name": "VIM_MODE","value": 0}}],
-        "conditions": [{"type": "variable_if","name": "VIM_MODE","value": 1}]
+        "from": CAPS_SHIFT(),
+        "to": setMODES(0),
+        "conditions": setConditions(1)
     }
 
 def normal_MODE(key, newKey):
@@ -29,15 +43,15 @@ def normal_MODE(key, newKey):
         "type": "basic",
         "from": {"key_code": key,"modifiers": {"optional": ["any"]}},
         "to": [{"key_code": newKey}],
-        "conditions": [{"type": "variable_if","name": "VIM_MODE","value": 1}]
+        "conditions": setConditions(1)
     }
 
 def insert_MODE():
     return {
         "type": "basic",
         "from": {"key_code": "i","modifiers": {"optional": ["any"]}},
-        "to": [{"set_variable": {"name": "VIM_MODE","value": 0}}],
-        "conditions": [{"type": "variable_if","name": "VIM_MODE","value": 1}]
+        "to": setMODES(0),
+        "conditions": setConditions(1)
     }
 
 def setComplexMods(): 
@@ -51,11 +65,13 @@ def setComplexMods():
                 # toggles VIM MODE
                 toggleCapsVIM_MODE_OFF(),
                 toggleCapsVIM_MODE_ON(),
+        
                 # hjkl arrow keys
                 normal_MODE("j", "down_arrow"),
                 normal_MODE("k", "up_arrow"),
                 normal_MODE("h", "left_arrow"),
                 normal_MODE("l", "right_arrow"),
+                
                 # insert mode 
                 insert_MODE()
             ]
