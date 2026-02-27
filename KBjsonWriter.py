@@ -17,6 +17,13 @@ def setMODES(VIM_MODE_BOOL, NORMAL_MODE_BOOL, MOUSE_MODE_BOOL):
         {"set_variable": {"name": "NORMAL_MODE","value": NORMAL_MODE_BOOL}},
         {"set_variable": {"name": "MOUSE_MODE","value": MOUSE_MODE_BOOL}}
     ]
+def setExit(Key, VIM_MODE_BOOL, NORMAL_MODE_BOOL, MOUSE_MODE_BOOL):
+    return [
+        {"key_code": Key},
+        {"set_variable": {"name": "VIM_MODE","value": VIM_MODE_BOOL}},
+        {"set_variable": {"name": "NORMAL_MODE","value": NORMAL_MODE_BOOL}},
+        {"set_variable": {"name": "MOUSE_MODE","value": MOUSE_MODE_BOOL}}
+    ]
 
 # checks if matches conditions 
 def setCondition(VIM_MODE_BOOL):
@@ -52,6 +59,22 @@ def NORMAL_MODE(key, newKey):
         "type": "basic",
         "from": {"key_code": key,"modifiers": {"optional": ["any"]}},
         "to": [{"key_code": newKey}],
+        "conditions": setConditions(1, 1, 0)
+    }
+
+def NORMAL_MODE_APPEND(key, newKey):
+    return {
+        "type": "basic",
+        "from": {"key_code": key,"modifiers": {"optional": ["any"]}},
+        "to": setExit(newKey, 0, 0, 0),
+        "conditions": setConditions(1, 1, 0)
+    }
+
+def NORMAL_MODE_APPEND_W_MOD(key, newKey):
+    return {
+        "type": "basic",
+        "from": {"key_code": key,"modifiers": {"mandatory": ["shift"], "optional": ["any"]}},
+        "to": setExit(newKey, 0, 0, 0),
         "conditions": setConditions(1, 1, 0)
     }
 
@@ -113,6 +136,8 @@ def setComplexMods():
                 NORMAL_MODE("k", "up_arrow"),
                 NORMAL_MODE("h", "left_arrow"),
                 NORMAL_MODE("l", "right_arrow"),
+                NORMAL_MODE_APPEND_W_MOD("a", "end"),
+                NORMAL_MODE_APPEND("a", "right_arrow"),
                 
                 # insert mode 
                 insert_MODE(),
@@ -130,7 +155,7 @@ def setComplexMods():
         }
     ]
     }
-
+ 
 if __name__ == "__main__":
     data = {
     "profiles": 
@@ -138,8 +163,19 @@ if __name__ == "__main__":
         {
             #set MODS
             "complex_modifications": setComplexMods(),
-            #default settings 
-            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+            #default settings plus personal keyboard info
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" },
+            "devices": [
+                {
+                    "identifiers": {
+                        "is_keyboard": True,
+                        "is_pointing_device": True,
+                        "product_id": 45915,
+                        "vendor_id": 1133
+                    },
+                    "ignore": False
+                }
+            ],
         }
     ]
     }
