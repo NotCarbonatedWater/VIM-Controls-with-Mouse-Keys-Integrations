@@ -1,5 +1,4 @@
 # VIM Controls with Mouse Keys Integrations for Karabiner Elements
-
 "Shift"+"CapsLock" turns vim mode on/off
 NORMAL MODE: 
 - tap "CapsLock" for normal mode 
