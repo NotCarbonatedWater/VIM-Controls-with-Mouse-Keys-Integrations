@@ -11,47 +11,80 @@ def write_to_json(filename, data):
 def CAPS_SHIFT():
     return {"key_code": "caps_lock","modifiers": {"mandatory": ["shift"],"optional": ["any"]}}
 
-def setMODES(VIM_MODE_BOOL):
+def setMODES(VIM_MODE_BOOL, NORMAL_MODE_BOOL, MOUSE_MODE_BOOL):
     return [
-        {"set_variable": {"name": "VIM_MODE","value": VIM_MODE_BOOL}}
+        {"set_variable": {"name": "VIM_MODE","value": VIM_MODE_BOOL}},
+        {"set_variable": {"name": "NORMAL_MODE","value": NORMAL_MODE_BOOL}},
+        {"set_variable": {"name": "MOUSE_MODE","value": MOUSE_MODE_BOOL}}
     ]
 
 # checks if matches conditions 
-def setConditions(VIM_MODE_BOOL):
+def setCondition(VIM_MODE_BOOL):
     return [
         {"type": "variable_if","name": "VIM_MODE","value": VIM_MODE_BOOL}
+
+    ]
+def setConditions(VIM_MODE_BOOL, NORMAL_MODE_BOOL, MOUSE_MODE_BOOL):
+    return [
+        {"type": "variable_if","name": "VIM_MODE","value": VIM_MODE_BOOL},
+        {"type": "variable_if","name": "NORMAL_MODE","value": NORMAL_MODE_BOOL},
+        {"type": "variable_if","name": "MOUSE_MODE","value": MOUSE_MODE_BOOL}
     ]
 
 def toggleCapsVIM_MODE_ON():
     return {
         "type": "basic",
         "from": CAPS_SHIFT(),
-        "to": setMODES(1),
-        "conditions": setConditions(0)
+        "to": setMODES(1, 1, 0),
+        "conditions": setCondition(0)
     }
 
 def toggleCapsVIM_MODE_OFF():
     return {
         "type": "basic",
         "from": CAPS_SHIFT(),
-        "to": setMODES(0),
-        "conditions": setConditions(1)
+        "to": setMODES(0, 0, 0),
+        "conditions": setCondition(1)
     }
 
-def normal_MODE(key, newKey):
+def NORMAL_MODE(key, newKey):
     return {
         "type": "basic",
         "from": {"key_code": key,"modifiers": {"optional": ["any"]}},
         "to": [{"key_code": newKey}],
-        "conditions": setConditions(1)
+        "conditions": setConditions(1, 1, 0)
     }
 
 def insert_MODE():
     return {
         "type": "basic",
         "from": {"key_code": "i","modifiers": {"optional": ["any"]}},
-        "to": setMODES(0),
-        "conditions": setConditions(1)
+        "to": setMODES(0, 0, 0), 
+        "conditions": setConditions(1, 1, 0)
+    }
+
+def MOUSE_MODE_TOGGLE_ON():
+    return {
+        "type": "basic",
+        "from": {"key_code": "m","modifiers": {"optional": ["any"]}},
+        "to": setMODES(1, 0, 1), 
+        "conditions": setConditions(1, 1, 0) # potential bug
+    }
+
+def MOUSE_MODE_TOGGLE_OFF():
+    return {
+        "type": "basic",
+        "from": {"key_code": "m","modifiers": {"optional": ["any"]}},
+        "to": setMODES(1, 1, 0), 
+        "conditions": setConditions(1, 0, 1) # potential bug
+    }
+
+def MOUSE_MODE(key, plane, dist):
+    return {
+        "type": "basic",
+        "from": {"key_code": key,"modifiers": {"optional": ["any"]}},
+        "to": [{ "mouse_key": { plane: dist } }],
+        "conditions": setConditions(1, 0, 1)
     }
 
 def setComplexMods(): 
@@ -67,13 +100,21 @@ def setComplexMods():
                 toggleCapsVIM_MODE_ON(),
         
                 # hjkl arrow keys
-                normal_MODE("j", "down_arrow"),
-                normal_MODE("k", "up_arrow"),
-                normal_MODE("h", "left_arrow"),
-                normal_MODE("l", "right_arrow"),
+                NORMAL_MODE("j", "down_arrow"),
+                NORMAL_MODE("k", "up_arrow"),
+                NORMAL_MODE("h", "left_arrow"),
+                NORMAL_MODE("l", "right_arrow"),
                 
                 # insert mode 
-                insert_MODE()
+                insert_MODE(),
+
+                # mouse keys 
+                MOUSE_MODE_TOGGLE_OFF(),
+                MOUSE_MODE_TOGGLE_ON(), 
+                MOUSE_MODE("j", "y", 1000),
+                MOUSE_MODE("k", "y", -1000),
+                MOUSE_MODE("h", "x", -1000),
+                MOUSE_MODE("l", "x", 1000),
             ]
         }
     ]
