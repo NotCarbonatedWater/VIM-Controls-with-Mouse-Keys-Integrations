@@ -25,6 +25,12 @@ def GETKEY(KEY):
 def CAPS_SHIFT():
     return PRESSKEY_W_MOD("caps_lock", "shift")
 
+def CTRL_CLOSEBRACKET():
+    return PRESSKEY_W_MOD("close_bracket", "control")
+
+def ESCAPE():
+    return PRESSKEY("escape")
+
 
 def SET_VAR(NAME, VAL):
     return {"set_variable": {"name": NAME, "value": VAL}}
@@ -114,19 +120,19 @@ def IF_MOUSE_MODE_ON():
     return [IF_VIM_ON(), IF_NORMAL_OFF(), IF_MOUSE_ON()]
 
 
-def toggleCapsVIM_STATE_ON():
+def toggleVIM_STATE_ON(KEYS):
     return {
         "type": "basic",
-        "from": CAPS_SHIFT(),
+        "from": KEYS,
         "to": START_VIM(),
         "conditions": [IF_VIM_OFF()],
     }
 
 
-def toggleCapsVIM_STATE_OFF():
+def toggleVIM_STATE_OFF(KEYS):
     return {
         "type": "basic",
-        "from": CAPS_SHIFT(),
+        "from": KEYS,
         "to": RESET_EXIT(),
         "conditions": [IF_VIM_ON()],
     }
@@ -211,8 +217,13 @@ def setComplexMods():
                 "description": "Arrow keypad Mode [Capslock as trigger KEY]",
                 "manipulators": [
                     # toggles VIM MODE
-                    toggleCapsVIM_STATE_OFF(),
-                    toggleCapsVIM_STATE_ON(),
+                    toggleVIM_STATE_OFF(ESCAPE()),
+                    toggleVIM_STATE_OFF(CAPS_SHIFT()),
+                    toggleVIM_STATE_OFF(CTRL_CLOSEBRACKET()),
+                    toggleVIM_STATE_ON(CAPS_SHIFT()),
+                    toggleVIM_STATE_ON(CTRL_CLOSEBRACKET()),
+
+
                     # hjkl arrow KEYs
                     NORMAL_MODE_TOGGLE(),
                     NORMAL_MODE("j", "down_arrow"),
