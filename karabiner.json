@@ -261,6 +261,72 @@
                             {
                                 "type": "basic",
                                 "from": {
+                                    "key_code": "x",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_forward"
+                                    }
+                                ],
+                                "conditions": [
+                                    {
+                                        "type": "variable_if",
+                                        "name": "VIM_MODE",
+                                        "value": 1
+                                    },
+                                    {
+                                        "type": "variable_if",
+                                        "name": "NORMAL_MODE",
+                                        "value": 1
+                                    },
+                                    {
+                                        "type": "variable_if",
+                                        "name": "MOUSE_MODE",
+                                        "value": 0
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "d",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": ""
+                                    }
+                                ],
+                                "conditions": [
+                                    {
+                                        "type": "variable_if",
+                                        "name": "VIM_MODE",
+                                        "value": 1
+                                    },
+                                    {
+                                        "type": "variable_if",
+                                        "name": "NORMAL_MODE",
+                                        "value": 1
+                                    },
+                                    {
+                                        "type": "variable_if",
+                                        "name": "MOUSE_MODE",
+                                        "value": 0
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "basic",
+                                "from": {
                                     "key_code": "a",
                                     "modifiers": {
                                         "mandatory": [
