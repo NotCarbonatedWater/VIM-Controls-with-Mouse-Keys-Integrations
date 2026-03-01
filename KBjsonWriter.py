@@ -38,6 +38,14 @@ def setConditions(VIM_MODE_BOOL, NORMAL_MODE_BOOL, MOUSE_MODE_BOOL):
         {"type": "variable_if","name": "MOUSE_MODE","value": MOUSE_MODE_BOOL}
     ]
 
+def setDDConditions(VIM_MODE_BOOL, NORMAL_MODE_BOOL, MOUSE_MODE_BOOL, DD_KEY_COUNT):
+    return [
+        {"type": "variable_if","name": "VIM_MODE","value": VIM_MODE_BOOL},
+        {"type": "variable_if","name": "NORMAL_MODE","value": NORMAL_MODE_BOOL},
+        {"type": "variable_if","name": "MOUSE_MODE","value": MOUSE_MODE_BOOL},
+        {"type": "variable_if","name": "DD_KEY_COUNT","value": DD_KEY_COUNT}
+    ]
+
 def toggleCapsVIM_MODE_ON():
     return {
         "type": "basic",
@@ -136,6 +144,8 @@ def setComplexMods():
                 NORMAL_MODE("k", "up_arrow"),
                 NORMAL_MODE("h", "left_arrow"),
                 NORMAL_MODE("l", "right_arrow"),
+                NORMAL_MODE("x", "delete_forward"),
+                NORMAL_MODE("d", ""),
                 NORMAL_MODE_APPEND_W_MOD("a", "end"),
                 NORMAL_MODE_APPEND("a", "right_arrow"),
                 
