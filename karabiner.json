@@ -4,7 +4,7 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Arrow Keypad Mode [Capslock as trigger key]",
+                        "description": "Arrow KEYpad Mode [Capslock as trigger KEY]",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -22,7 +22,7 @@
                                 "to": [
                                     {
                                         "set_variable": {
-                                            "name": "VIM_MODE",
+                                            "name": "VIM_STATE",
                                             "value": 0
                                         }
                                     },
@@ -42,7 +42,7 @@
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     }
                                 ]
@@ -63,7 +63,7 @@
                                 "to": [
                                     {
                                         "set_variable": {
-                                            "name": "VIM_MODE",
+                                            "name": "VIM_STATE",
                                             "value": 1
                                         }
                                     },
@@ -83,7 +83,7 @@
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 0
                                     }
                                 ]
@@ -91,37 +91,18 @@
                             {
                                 "type": "basic",
                                 "from": {
-                                    "key_code": "caps_lock",
-                                    "modifiers": {
-                                        "optional": [
-                                            "any"
-                                        ]
+                                    "key_code": "caps_lock"
+                                },
+                                "to": {
+                                    "set_variable": {
+                                        "name": "NORMAL_MODE",
+                                        "value": 1
                                     }
                                 },
-                                "to": [
-                                    {
-                                        "set_variable": {
-                                            "name": "VIM_MODE",
-                                            "value": 1
-                                        }
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "NORMAL_MODE",
-                                            "value": 1
-                                        }
-                                    },
-                                    {
-                                        "set_variable": {
-                                            "name": "MOUSE_MODE",
-                                            "value": 0
-                                        }
-                                    }
-                                ],
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     }
                                 ]
@@ -136,15 +117,13 @@
                                         ]
                                     }
                                 },
-                                "to": [
-                                    {
-                                        "key_code": "down_arrow"
-                                    }
-                                ],
+                                "to": {
+                                    "key_code": "down_arrow"
+                                },
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -169,15 +148,13 @@
                                         ]
                                     }
                                 },
-                                "to": [
-                                    {
-                                        "key_code": "up_arrow"
-                                    }
-                                ],
+                                "to": {
+                                    "key_code": "up_arrow"
+                                },
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -202,15 +179,13 @@
                                         ]
                                     }
                                 },
-                                "to": [
-                                    {
-                                        "key_code": "left_arrow"
-                                    }
-                                ],
+                                "to": {
+                                    "key_code": "left_arrow"
+                                },
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -235,15 +210,13 @@
                                         ]
                                     }
                                 },
-                                "to": [
-                                    {
-                                        "key_code": "right_arrow"
-                                    }
-                                ],
+                                "to": {
+                                    "key_code": "right_arrow"
+                                },
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -268,15 +241,13 @@
                                         ]
                                     }
                                 },
-                                "to": [
-                                    {
-                                        "key_code": "delete_forward"
-                                    }
-                                ],
+                                "to": {
+                                    "key_code": "delete_forward"
+                                },
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -301,15 +272,13 @@
                                         ]
                                     }
                                 },
-                                "to": [
-                                    {
-                                        "key_code": ""
-                                    }
-                                ],
+                                "to": {
+                                    "key_code": ""
+                                },
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -339,11 +308,8 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "end"
-                                    },
-                                    {
                                         "set_variable": {
-                                            "name": "VIM_MODE",
+                                            "name": "VIM_STATE",
                                             "value": 0
                                         }
                                     },
@@ -358,12 +324,15 @@
                                             "name": "MOUSE_MODE",
                                             "value": 0
                                         }
+                                    },
+                                    {
+                                        "key_code": "end"
                                     }
                                 ],
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -390,11 +359,8 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "right_arrow"
-                                    },
-                                    {
                                         "set_variable": {
-                                            "name": "VIM_MODE",
+                                            "name": "VIM_STATE",
                                             "value": 0
                                         }
                                     },
@@ -409,12 +375,15 @@
                                             "name": "MOUSE_MODE",
                                             "value": 0
                                         }
+                                    },
+                                    {
+                                        "key_code": "right_arrow"
                                     }
                                 ],
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -442,7 +411,7 @@
                                 "to": [
                                     {
                                         "set_variable": {
-                                            "name": "VIM_MODE",
+                                            "name": "VIM_STATE",
                                             "value": 0
                                         }
                                     },
@@ -462,7 +431,7 @@
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -490,7 +459,7 @@
                                 "to": [
                                     {
                                         "set_variable": {
-                                            "name": "VIM_MODE",
+                                            "name": "VIM_STATE",
                                             "value": 1
                                         }
                                     },
@@ -510,18 +479,8 @@
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
-                                    },
-                                    {
-                                        "type": "variable_if",
-                                        "name": "NORMAL_MODE",
-                                        "value": 1
-                                    },
-                                    {
-                                        "type": "variable_if",
-                                        "name": "MOUSE_MODE",
-                                        "value": 0
                                     }
                                 ]
                             },
@@ -545,7 +504,7 @@
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -580,7 +539,7 @@
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -615,7 +574,7 @@
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -650,7 +609,7 @@
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -683,7 +642,7 @@
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -716,7 +675,7 @@
                                 "conditions": [
                                     {
                                         "type": "variable_if",
-                                        "name": "VIM_MODE",
+                                        "name": "VIM_STATE",
                                         "value": 1
                                     },
                                     {
@@ -741,7 +700,7 @@
             "devices": [
                 {
                     "identifiers": {
-                        "is_keyboard": true,
+                        "is_KEYboard": true,
                         "is_pointing_device": true,
                         "product_id": 45915,
                         "vendor_id": 1133
