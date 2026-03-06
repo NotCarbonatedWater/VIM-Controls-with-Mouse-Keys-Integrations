@@ -16,6 +16,31 @@ def toggleCapsVIM_MODE_ON():
         "conditions": [{"type": "variable_if","name": "VIM_MODE","value": 0}]
     }
 
+def new_line():
+    return{
+        "type": "basic",
+        "from": {"key_code": "o", "modifiers": {"optional": ["any"]}},
+        "to": [
+            {"key_code": "end"}, #go to the end of the line
+            {"key_code": "return_or_enter"}, #create the new line
+            {"set_variable": {"name": "VIM_MODE", "value": 0}}  #insert mode
+        ],
+        "conditions": [{"type": "variable_if", "name": "VIM_MODE", "value": 1}]
+    }
+
+def new_line_above():
+    return{
+        "type": "basic",
+        "from": {"key_code": "o", "modifiers": {"mandatory": ["shift"], "optional": ["any"]}},
+        "to": [
+            {"key_code": "home"}, #go to the beginning of the line
+            {"key_code": "return_or_enter"}, #create the new line (pushes current line down)
+            {"key_code": "up_arrow"}, #go up to the new empty line
+            {"set_variable": {"name": "VIM_MODE", "value": 0}}  #insert mode
+        ],
+        "conditions": [{"type": "variable_if", "name": "VIM_MODE", "value": 1}]
+    }
+
 def toggleCapsVIM_MODE_OFF():
     return {
         "type": "basic",
@@ -56,6 +81,10 @@ def setComplexMods():
                 normal_MODE("k", "up_arrow"),
                 normal_MODE("h", "left_arrow"),
                 normal_MODE("l", "right_arrow"),
+                
+                # new line
+                new_line(),
+                new_line_above(),
                 # insert mode 
                 insert_MODE()
             ]
